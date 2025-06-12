@@ -23,6 +23,8 @@ import { Collapsible,
     CollapsibleTrigger,
     CollapsibleContent
  } from '@radix-ui/react-collapsible';
+import { logout } from '@/lib/axios/auth';
+import { useMutation } from '@tanstack/react-query';
 const sidebarNavist = [
     {
         title: "Explore Lands",
@@ -60,6 +62,16 @@ const sidebarNavist = [
 
 const SidebarNavigation = () => {
     const navigate = useNavigate();
+
+    const {mutate} = useMutation({
+        mutationFn: () => logout(),
+        onSuccess: () => {
+            navigate({ to: '/' });
+        },
+        onError: (error) => {
+            console.error("Logout failed:", error);
+        }
+    })
     return (
         <div>
             <Sidebar>
@@ -125,7 +137,9 @@ const SidebarNavigation = () => {
                                         <span>Billing</span>
                                     </DropdownMenuItem>
                                     <DropdownMenuItem>
-                                        <span>Sign out</span>
+                                        <SidebarMenuButton onClick={() => mutate()}>
+                                            <span>Sign out</span>
+                                        </SidebarMenuButton>
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
