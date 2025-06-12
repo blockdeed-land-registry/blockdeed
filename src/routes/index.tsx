@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Login from '@/components/Login/Login'
-import Register from '@/components/Register/Register'
+
 import { redirect } from '@tanstack/react-router'
 import { validateAuth } from '@/lib/axios/auth'
 export const Route = createFileRoute('/')({
